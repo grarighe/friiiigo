@@ -166,7 +166,7 @@ body {
 
 .app-footer {
   background: var(--footer-bg);
-  padding: 7px 16px;
+  padding: 9px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -752,16 +752,15 @@ body {
   /* Seg buttons can shrink a bit */
   .seg { font-size: 12px; padding: 0 var(--sp-xs); }
 
-  /* Preview: block layout, uniform 16px padding.
-     Paper size is computed by JS from clientWidth so it fills exactly. */
+  /* Preview: block layout, minimal padding so sheet fills the width. */
   #preview {
     flex: none;
     display: block;
-    padding: 16px;
+    padding: 12px 12px;
   }
   /* Paper sheets stack with gap (replacing flex gap) */
   .paper-sheet {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
   .paper-sheet:last-child { margin-bottom: 0; }
 
@@ -1177,7 +1176,8 @@ function paperDims() {
   var cs    = window.getComputedStyle(el);
   var hpad  = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
   var vpad  = parseFloat(cs.paddingTop)  + parseFloat(cs.paddingBottom);
-  var availW = (el.clientWidth  || 820) - hpad - 20;
+  var isMobileCalc = window.innerWidth <= 700;
+  var availW = (el.clientWidth  || 820) - hpad - (isMobileCalc ? 12 : 20);
   var availH = (el.clientHeight || 600) - vpad;
   var land  = S.orientation==='landscape';
   var a4    = S.pageSize==='A4';
@@ -1190,7 +1190,7 @@ function paperDims() {
 
   /* Screen width the sheet will actually occupy */
   var screenW;
-  if (land) {
+  if (land && !isMobileCalc) {
     screenW = Math.min(Math.floor(availH * ratio), availW);
     screenW = Math.max(screenW, 320);
   } else {
