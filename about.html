@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Friiiigo?</title>
+
+<!-- SEO -->
+<meta name="description" content="The story behind Friiiigo — a screen-free family calendar you can print and stick to the fridge.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Why Friiiigo?">
+<meta property="og:description" content="The story behind Friiiigo — a screen-free family calendar you can print and stick to the fridge.">
+<meta property="og:image" content="https://grarighe.github.io/friiiigo/friiiigo-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why Friiiigo?">
+<meta name="twitter:description" content="The story behind Friiiigo — a screen-free family calendar you can print and stick to the fridge.">
+<meta name="twitter:image" content="https://grarighe.github.io/friiiigo/friiiigo-og.png">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg viewBox='195 0 220 238' xmlns='http://www.w3.org/2000/svg'><path d='M241.751 70.6178V181.34H202.685V70.6178H241.751ZM200.095 28.0989C200.095 25.0772 200.671 22.2714 201.822 19.6814C202.973 16.9475 204.556 14.5734 206.57 12.5589C208.585 10.5445 210.887 8.96174 213.477 7.81064C216.211 6.65954 219.089 6.08398 222.11 6.08398C225.132 6.08398 227.938 6.65954 230.528 7.81064C233.262 8.96174 235.636 10.5445 237.65 12.5589C239.665 14.5734 241.247 16.9475 242.399 19.6814C243.55 22.2714 244.125 25.0772 244.125 28.0989C244.125 31.1205 243.55 33.9983 242.399 36.7322C241.247 39.3222 239.665 41.6244 237.65 43.6388C235.636 45.6532 233.262 47.236 230.528 48.3871C227.938 49.5382 225.132 50.1138 222.11 50.1138C219.089 50.1138 216.211 49.5382 213.477 48.3871C210.887 47.236 208.585 45.6532 206.57 43.6388C204.556 41.6244 202.973 39.3222 201.822 36.7322C200.671 33.9983 200.095 31.1205 200.095 28.0989Z' fill='%23E0343B'/><path d='M297.02 70.6178V181.34H257.955V70.6178H297.02ZM255.365 28.0989C255.365 25.0772 255.94 22.2714 257.092 19.6814C258.243 16.9475 259.825 14.5734 261.84 12.5589C263.854 10.5445 266.156 8.96174 268.746 7.81064C271.48 6.65954 274.358 6.08398 277.38 6.08398C280.401 6.08398 283.207 6.65954 285.797 7.81064C288.531 8.96174 290.905 10.5445 292.92 12.5589C294.934 14.5734 296.517 16.9475 297.668 19.6814C298.819 22.2714 299.395 25.0772 299.395 28.0989C299.395 31.1205 298.819 33.9983 297.668 36.7322C296.517 39.3222 294.934 41.6244 292.92 43.6388C290.905 45.6532 288.531 47.236 285.797 48.3871C283.207 49.5382 280.401 50.1138 277.38 50.1138C274.358 50.1138 271.48 49.5382 268.746 48.3871C266.156 47.236 263.854 45.6532 261.84 43.6388C259.825 41.6244 258.243 39.3222 257.092 36.7322C255.94 33.9983 255.365 31.1205 255.365 28.0989Z' fill='%23BE8B00'/><path d='M352.587 70.6178V181.34H313.521V70.6178H352.587ZM310.931 28.0989C310.931 25.0772 311.507 22.2714 312.658 19.6814C313.809 16.9475 315.392 14.5734 317.406 12.5589C319.421 10.5445 321.723 8.96174 324.313 7.81064C327.047 6.65954 329.924 6.08398 332.946 6.08398C335.968 6.08398 338.774 6.65954 341.364 7.81064C344.097 8.96174 346.472 10.5445 348.486 12.5589C350.5 14.5734 352.083 16.9475 353.234 19.6814C354.385 22.2714 354.961 25.0772 354.961 28.0989C354.961 31.1205 354.385 33.9983 353.234 36.7322C352.083 39.3222 350.5 41.6244 348.486 43.6388C346.472 45.6532 344.097 47.236 341.364 48.3871C338.774 49.5382 335.968 50.1138 332.946 50.1138C329.924 50.1138 327.047 49.5382 324.313 48.3871C321.723 47.236 319.421 45.6532 317.406 43.6388C315.392 41.6244 313.809 39.3222 312.658 36.7322C311.507 33.9983 310.931 31.1205 310.931 28.0989Z' fill='%23068C52'/><path d='M407.856 70.6178V181.34H368.791V70.6178H407.856ZM366.201 28.0989C366.201 25.0772 366.776 22.2714 367.927 19.6814C369.078 16.9475 370.661 14.5734 372.676 12.5589C374.69 10.5445 376.992 8.96174 379.582 7.81064C382.316 6.65954 385.194 6.08398 388.215 6.08398C391.237 6.08398 394.043 6.65954 396.633 7.81064C399.367 8.96174 401.741 10.5445 403.755 12.5589C405.77 14.5734 407.353 16.9475 408.504 19.6814C409.655 22.2714 410.23 25.0772 410.23 28.0989C410.23 31.1205 409.655 33.9983 408.504 36.7322C407.353 39.3222 405.77 41.6244 403.755 43.6388C401.741 45.6532 399.367 47.236 396.633 48.3871C394.043 49.5382 391.237 50.1138 388.215 50.1138C385.194 50.1138 382.316 49.5382 379.582 48.3871C376.992 47.236 374.69 45.6532 372.676 43.6388C370.661 41.6244 369.078 39.3222 367.927 36.7322C366.776 33.9983 366.201 31.1205 366.201 28.0989Z' fill='%23388FDC'/></svg>">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --btn-bg:         #2a5c3f;
+  --brand-paper:    #fffdf8;
+  --brand-subtle:   #e4eed8;
+  --brand-tint:     #f5ede0;
+  --field-stroke:   #a8c896;
+  --text-heading:   #1a2e1f;
+  --text-label:     #3a6b4a;
+  --text-body:      #2a4a32;
+  --text-microcopy: #6a7a68;
+  --text-light:     #ffffff;
+  --logo-dark:      #082900;
+  --footer-bg:      #e2cebc;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--brand-subtle);
+  min-height: 100vh;
+  color: var(--text-heading);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── NAV ── */
+.site-nav {
+  background: var(--brand-paper);
+  box-shadow: 0 2px 12px rgba(62,30,8,0.10);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.site-nav a.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--logo-dark);
+  font-size: 13px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.site-nav a.logo-link:hover { opacity: 0.75; }
+.site-nav .nav-spacer { flex: 1; }
+.site-nav a.nav-back {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-label);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--brand-subtle);
+  transition: background 0.15s;
+}
+.site-nav a.nav-back:hover { background: var(--field-stroke); }
+
+/* ── MAIN CONTENT ── */
+.page-content {
+  flex: 1;
+  max-width: 740px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 56px 32px 72px;
+}
+
+/* Hero */
+.hero {
+  margin-bottom: 52px;
+}
+.hero-kicker {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-label);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.hero-title {
+  font-family: 'Caveat', cursive;
+  font-size: 54px;
+  font-weight: 700;
+  color: var(--btn-bg);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.hero-intro {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-body);
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+/* Divider */
+.section-divider {
+  height: 2px;
+  background: var(--brand-subtle);
+  border-radius: 2px;
+  margin: 40px 0;
+}
+
+/* Feature cards */
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 52px;
+}
+.feature {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--brand-paper);
+  border: 1.5px solid var(--field-stroke);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.feature-body {}
+.feature-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 6px;
+}
+.feature-text {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-body);
+  line-height: 1.65;
+}
+
+/* Callout / personal story block */
+.story-block {
+  background: var(--brand-paper);
+  border: 1.5px solid var(--field-stroke);
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin-bottom: 40px;
+  position: relative;
+}
+.story-block::before {
+  content: '"';
+  font-family: 'Caveat', cursive;
+  font-size: 80px;
+  font-weight: 700;
+  color: var(--field-stroke);
+  position: absolute;
+  top: -10px;
+  left: 24px;
+  line-height: 1;
+}
+.story-text {
+  font-size: 16px;
+  color: var(--text-body);
+  line-height: 1.7;
+  padding-top: 24px;
+}
+.story-sig {
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-label);
+}
+
+/* Privacy note */
+.privacy-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--brand-subtle);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 14px;
+  color: var(--text-body);
+  line-height: 1.5;
+}
+.privacy-note .lock-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+/* CTA */
+.cta-wrap {
+  text-align: center;
+  margin-top: 52px;
+}
+.cta-label {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-microcopy);
+  margin-bottom: 14px;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--btn-bg);
+  color: var(--text-light);
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 0 28px;
+  height: 48px;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(62,30,8,0.28);
+  transition: opacity 0.15s, box-shadow 0.15s;
+}
+.cta-btn:hover { opacity: 0.9; box-shadow: 0 6px 20px rgba(62,30,8,0.36); }
+
+/* ── FOOTER ── */
+.app-footer {
+  background: var(--footer-bg);
+  padding: 10px 32px;
+  text-align: right;
+  font-size: 11px;
+  color: var(--text-body);
+}
+.app-footer a {
+  color: var(--text-label);
+  text-decoration: none;
+  font-weight: 600;
+}
+.app-footer a:hover { text-decoration: underline; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .site-nav { padding: 14px 16px; }
+  .page-content { padding: 36px 20px 56px; }
+  .hero-title { font-size: 40px; }
+  .hero-intro { font-size: 16px; }
+  .story-block { padding: 24px 20px; }
+  .feature-icon { width: 38px; height: 38px; font-size: 18px; }
+  .app-footer { padding: 10px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="site-nav">
+  <a class="logo-link" href="index.html">
+    <svg width="90" height="30" viewBox="0 0 713 238" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M619.271 125.614C619.271 129.355 619.919 132.809 621.214 135.974C622.653 138.996 624.451 141.658 626.61 143.96C628.912 146.262 631.574 148.061 634.595 149.356C637.761 150.651 641.07 151.298 644.524 151.298C647.977 151.298 651.214 150.651 654.236 149.356C657.402 148.061 660.064 146.262 662.222 143.96C664.524 141.658 666.323 138.996 667.618 135.974C669.057 132.809 669.776 129.427 669.776 125.83C669.776 122.377 669.057 119.139 667.618 116.118C666.323 112.952 664.524 110.218 662.222 107.916C660.064 105.614 657.402 103.815 654.236 102.52C651.214 101.225 647.977 100.578 644.524 100.578C641.07 100.578 637.761 101.225 634.595 102.52C631.574 103.815 628.912 105.614 626.61 107.916C624.451 110.218 622.653 112.88 621.214 115.902C619.919 118.924 619.271 122.161 619.271 125.614ZM578.047 125.183C578.047 116.981 579.702 109.355 583.012 102.304C586.321 95.11 590.925 88.9228 596.825 83.7429C602.724 78.419 609.703 74.2463 617.76 71.2246C625.962 68.203 634.883 66.6921 644.524 66.6921C654.02 66.6921 662.797 68.203 670.855 71.2246C679.057 74.1024 686.107 78.2032 692.007 83.527C698.05 88.707 702.726 94.9662 706.036 102.304C709.345 109.499 711 117.485 711 126.262C711 135.039 709.273 143.097 705.82 150.435C702.511 157.629 697.906 163.889 692.007 169.212C686.107 174.392 678.985 178.421 670.639 181.299C662.438 184.177 653.517 185.616 643.876 185.616C634.38 185.616 625.602 184.177 617.545 181.299C609.487 178.421 602.508 174.32 596.609 168.997C590.853 163.673 586.321 157.342 583.012 150.003C579.702 142.521 578.047 134.248 578.047 125.183Z" fill="#082900"/>
+      <path d="M468.131 125.614C468.131 129.211 468.779 132.593 470.074 135.758C471.369 138.78 473.095 141.442 475.254 143.744C477.556 146.046 480.218 147.845 483.24 149.14C486.405 150.435 489.786 151.082 493.384 151.082C496.837 151.082 500.075 150.435 503.096 149.14C506.262 147.845 508.924 146.046 511.082 143.744C513.384 141.442 515.183 138.78 516.478 135.758C517.917 132.593 518.636 129.283 518.636 125.83C518.636 122.233 517.917 118.923 516.478 115.902C515.183 112.88 513.384 110.218 511.082 107.916C508.78 105.614 506.046 103.815 502.88 102.52C499.859 101.225 496.693 100.578 493.384 100.578C489.93 100.578 486.693 101.297 483.671 102.736C480.65 104.031 477.988 105.83 475.685 108.132C473.383 110.29 471.513 112.88 470.074 115.902C468.779 118.923 468.131 122.161 468.131 125.614ZM555.759 70.7929V173.961C555.759 180.148 555.4 185.688 554.68 190.58C553.961 195.472 552.953 199.789 551.658 203.53C549.932 208.278 547.198 212.667 543.457 216.695C539.86 220.868 535.471 224.465 530.291 227.487C525.111 230.509 519.212 232.883 512.593 234.61C506.118 236.336 499.067 237.2 491.441 237.2C482.808 237.2 474.894 236.12 467.7 233.962C460.505 231.804 454.174 228.782 448.706 224.897C443.383 221.156 438.994 216.695 435.541 211.516C432.087 206.479 429.785 200.94 428.634 194.896H472.664C475.398 202.235 481.585 205.904 491.225 205.904C499.427 205.904 505.686 203.602 510.003 198.997C514.463 194.393 516.694 187.99 516.694 179.788V169.212C513.816 171.946 511.01 174.248 508.276 176.119C505.686 177.846 503.024 179.285 500.29 180.436C497.556 181.587 494.679 182.378 491.657 182.81C488.635 183.385 485.326 183.673 481.729 183.673C473.815 183.673 466.549 182.306 459.93 179.572C453.311 176.838 447.555 173.025 442.663 168.133C437.915 163.241 434.174 157.414 431.44 150.651C428.85 143.744 427.555 136.118 427.555 127.773C427.555 119.283 428.994 111.441 431.872 104.247C434.749 96.9086 438.634 90.5775 443.526 85.2536C448.563 79.7859 454.462 75.5412 461.225 72.5196C468.131 69.354 475.614 67.7712 483.671 67.7712C496.765 67.7712 507.773 72.6634 516.694 82.4478V70.7929H555.759Z" fill="#082900"/>
+      <path d="M95.101 70.7929H134.167V88.9228C138.339 82.3039 143.447 77.2678 149.491 73.8145C155.534 70.2173 162.585 68.4187 170.642 68.4187C171.65 68.4187 172.729 68.4187 173.88 68.4187C175.175 68.4187 176.614 68.5626 178.196 68.8504V106.189C173.016 103.599 167.405 102.304 161.362 102.304C152.297 102.304 145.462 105.038 140.857 110.506C136.397 115.83 134.167 123.672 134.167 134.032V181.515H95.101V70.7929Z" fill="#082900"/>
+      <path d="M53.0947 103.384V181.515H14.0291V103.384H0V70.793H14.0291V54.1739C14.0291 44.965 14.8924 37.6267 16.6191 32.159C18.058 27.5546 20.3602 23.3099 23.5257 19.4249C26.6913 15.396 30.3604 11.9427 34.5332 9.06495C38.8498 6.18718 43.4542 3.95691 48.3464 2.37415C53.2386 0.791381 58.0589 0 62.8072 0C66.1166 0 69.1383 0.359717 71.8721 1.07916C74.7499 1.7986 77.6277 2.80581 80.5054 4.10081V38.2023C77.9154 36.9073 75.4693 35.972 73.1671 35.3965C71.0088 34.677 68.7066 34.3173 66.2605 34.3173C64.6777 34.3173 63.023 34.6051 61.2964 35.1806C59.7136 35.6123 58.2028 36.6195 56.7639 38.2023C55.325 39.7851 54.3178 42.0873 53.7422 45.1089C53.3106 47.9867 53.0947 51.9436 53.0947 56.9797V70.793H80.5054V103.384H53.0947Z" fill="#082900"/>
+      <path d="M295.02 70.6178V181.34H255.955V70.6178H295.02ZM253.365 28.0989C253.365 25.0772 253.94 22.2714 255.092 19.6814C256.243 16.9475 257.825 14.5734 259.84 12.5589C261.854 10.5445 264.156 8.96174 266.746 7.81064C269.48 6.65954 272.358 6.08398 275.38 6.08398C278.401 6.08398 281.207 6.65954 283.797 7.81064C286.531 8.96174 288.905 10.5445 290.92 12.5589C292.934 14.5734 294.517 16.9475 295.668 19.6814C296.819 22.2714 297.395 25.0772 297.395 28.0989C297.395 31.1205 296.819 33.9983 295.668 36.7322C294.517 39.3222 292.934 41.6244 290.92 43.6388C288.905 45.6532 286.531 47.236 283.797 48.3871C281.207 49.5382 278.401 50.1138 275.38 50.1138C272.358 50.1138 269.48 49.5382 266.746 48.3871C264.156 47.236 261.854 45.6532 259.84 43.6388C257.825 41.6244 256.243 39.3222 255.092 36.7322C253.94 33.9983 253.365 31.1205 253.365 28.0989Z" fill="#BE8B00"/>
+      <path d="M405.856 70.6178V181.34H366.791V70.6178H405.856ZM364.201 28.0989C364.201 25.0772 364.776 22.2714 365.927 19.6814C367.078 16.9475 368.661 14.5734 370.676 12.5589C372.69 10.5445 374.992 8.96174 377.582 7.81064C380.316 6.65954 383.194 6.08398 386.215 6.08398C389.237 6.08398 392.043 6.65954 394.633 7.81064C397.367 8.96174 399.741 10.5445 401.755 12.5589C403.77 14.5734 405.353 16.9475 406.504 19.6814C407.655 22.2714 408.23 25.0772 408.23 28.0989C408.23 31.1205 407.655 33.9983 406.504 36.7322C405.353 39.3222 403.77 41.6244 401.755 43.6388C399.741 45.6532 397.367 47.236 394.633 48.3871C392.043 49.5382 389.237 50.1138 386.215 50.1138C383.194 50.1138 380.316 49.5382 377.582 48.3871C374.992 47.236 372.69 45.6532 370.676 43.6388C368.661 41.6244 367.078 39.3222 365.927 36.7322C364.776 33.9983 364.201 31.1205 364.201 28.0989Z" fill="#388FDC"/>
+      <path d="M239.751 70.6178V181.34H200.685V70.6178H239.751ZM198.095 28.0989C198.095 25.0772 198.671 22.2714 199.822 19.6814C200.973 16.9475 202.556 14.5734 204.57 12.5589C206.585 10.5445 208.887 8.96174 211.477 7.81064C214.211 6.65954 217.089 6.08398 220.11 6.08398C223.132 6.08398 225.938 6.65954 228.528 7.81064C231.262 8.96174 233.636 10.5445 235.65 12.5589C237.665 14.5734 239.247 16.9475 240.399 19.6814C241.55 22.2714 242.125 25.0772 242.125 28.0989C242.125 31.1205 241.55 33.9983 240.399 36.7322C239.247 39.3222 237.665 41.6244 235.65 43.6388C233.636 45.6532 231.262 47.236 228.528 48.3871C225.938 49.5382 223.132 50.1138 220.11 50.1138C217.089 50.1138 214.211 49.5382 211.477 48.3871C208.887 47.236 206.585 45.6532 204.57 43.6388C202.556 41.6244 200.973 39.3222 199.822 36.7322C198.671 33.9983 198.095 31.1205 198.095 28.0989Z" fill="#E0343B"/>
+      <path d="M350.587 70.6178V181.34H311.521V70.6178H350.587ZM308.931 28.0989C308.931 25.0772 309.507 22.2714 310.658 19.6814C311.809 16.9475 313.392 14.5734 315.406 12.5589C317.421 10.5445 319.723 8.96174 322.313 7.81064C325.047 6.65954 327.924 6.08398 330.946 6.08398C333.968 6.08398 336.774 6.65954 339.364 7.81064C342.097 8.96174 344.472 10.5445 346.486 12.5589C348.5 14.5734 350.083 16.9475 351.234 19.6814C352.385 22.2714 352.961 25.0772 352.961 28.0989C352.961 31.1205 352.385 33.9983 351.234 36.7322C350.083 39.3222 348.5 41.6244 346.486 43.6388C344.472 45.6532 342.097 47.236 339.364 48.3871C336.774 49.5382 333.968 50.1138 330.946 50.1138C327.924 50.1138 325.047 49.5382 322.313 48.3871C319.723 47.236 317.421 45.6532 315.406 43.6388C313.392 41.6244 311.809 39.3222 310.658 36.7322C309.507 33.9983 308.931 31.1205 308.931 28.0989Z" fill="#068C52"/>
+    </svg>
+  </a>
+  <div class="nav-spacer"></div>
+  <a class="nav-back" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Make a calendar
+  </a>
+</nav>
+
+<!-- ── CONTENT ── -->
+<main class="page-content">
+
+  <div class="hero">
+    <p class="hero-kicker">The story behind Friiiigo</p>
+    <h1 class="hero-title">Why a fridge calendar?</h1>
+    <p class="hero-intro">Sure, every parent has a calendar on their phone. But when you have little ones at home, something magical happens when you stick a big, colourful calendar on the fridge and let the kids own it.</p>
+  </div>
+
+  <div class="features">
+
+    <div class="feature">
+      <div class="feature-icon">📅</div>
+      <div class="feature-body">
+        <p class="feature-title">Teaching time</p>
+        <p class="feature-text">From around age 2, kids start to understand concepts like "today", "tomorrow" and "the day after". A physical calendar on the fridge gives them something real to look at, point to, and ask about every single day. It helps them grasp days of the week, months, and the rhythm of family life in a way no app can replicate.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">📵</div>
+      <div class="feature-body">
+        <p class="feature-title">No screens involved</p>
+        <p class="feature-text">You print it once and it lives on the fridge. Kids interact with it by looking, pointing, drawing and crossing off days, not by tapping a phone or tablet. In a world where everything runs through a screen, a paper calendar on the wall is a small but meaningful exception.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">✏️</div>
+      <div class="feature-body">
+        <p class="feature-title">It's meant to be touched, and messed up</p>
+        <p class="feature-text">Kids can scribble on it, draw on it, cross off the days, circle their favourite ones. That hands-on relationship with time is exactly the point. And when the month is over, you just print a fresh one.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">🎉</div>
+      <div class="feature-body">
+        <p class="feature-title">Help kids wait for the things they're looking forward to</p>
+        <p class="feature-text">Holidays, birthday parties, a visit from grandma, or the more stressful ones like a doctor's appointment. Writing events on the calendar gives children a concrete way to track time passing and understand that "soon" is actually just a few squares away.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">🌈</div>
+      <div class="feature-body">
+        <p class="feature-title">Highlight the days that matter to your family</p>
+        <p class="feature-text">Every family has its own rhythm. Here in France, kids don't go to school on Wednesdays, so I highlight them every week. You can use the colour highlights for whatever makes sense for yours: school days, sports days, days at grandma's, anything.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">📝</div>
+      <div class="feature-body">
+        <p class="feature-title">Add notes before you print</p>
+        <p class="feature-text">You can type a short note into any day before printing: a birthday, a reminder, a little message. It shows up right on the calendar, so the whole family sees it at a glance.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="privacy-note">
+    <span class="lock-icon">🔒</span>
+    <span>Everything stays on your device. Friiiigo doesn't send, store, or track any of your data. Not your events, not your notes, nothing.</span>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <div class="story-block">
+    <p class="story-text">I used to draw a calendar by hand every month. It worked great until the kids messed it up and I had to redo the whole thing from scratch, making sure every day landed on the right column. That gets old fast. Now I just hit print, and my 5-year-old takes it from there. Watching him cross off the days to his birthday is worth every line of code.</p>
+    <p class="story-sig">— Babi, mum & maker</p>
+  </div>
+
+  <div class="cta-wrap">
+    <p class="cta-label">Ready to make yours?</p>
+    <a class="cta-btn" href="index.html">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 6 2 18 2 18 9"/>
+        <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+        <rect x="6" y="14" width="12" height="8"/>
+      </svg>
+      Make a calendar
+    </a>
+  </div>
+
+</main>
+
+<footer class="app-footer">Made with &#9829; by <a href="https://www.linkedin.com/in/barbara-marcantonio-97680938/" target="_blank" rel="noopener">Babi</a> &amp; her robot friends.</footer>
+
+</body>
+</html>
