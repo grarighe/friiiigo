@@ -167,7 +167,9 @@ body {
 .app-footer {
   background: var(--footer-bg);
   padding: 7px 16px;
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   flex-shrink: 0;
   font-size: 11px;
   color: var(--text-body);
@@ -776,6 +778,8 @@ body {
   .modal-actions { flex-wrap: wrap; gap: 6px; }
   .modal-spacer  { display: none; }
   .modal-save    { margin-left: auto; }
+
+  .app-footer { flex-direction: column; align-items: flex-start; gap: 4px; padding: 10px 16px; }
 }
 </style>
 </head>
@@ -973,7 +977,7 @@ body {
     <div id="sheet-nav" aria-label="Sheet navigation"></div>
     <!-- ── PREVIEW ── -->
     <main id="preview"></main>
-    <footer class="app-footer"><a href="about.html">Why Friiiigo?</a> &nbsp;·&nbsp; Made with &#9829; by <a href="https://www.linkedin.com/in/barbara-marcantonio-97680938/" target="_blank" rel="noopener">Babi</a> &amp; her robot friends.</footer>
+    <footer class="app-footer"><span>Latest update: May 2026</span><span><a href="about.html">Why Friiiigo?</a> &nbsp;·&nbsp; Made with &#9829; by <a href="https://www.linkedin.com/in/barbara-marcantonio-97680938/" target="_blank" rel="noopener">Babi</a> &amp; her robot friends.</span></footer>
   </div>
 
 </div>
