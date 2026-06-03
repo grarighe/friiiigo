@@ -432,7 +432,7 @@ body {
 
 .dp-day-names {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: 18px repeat(7, 1fr);
   margin-bottom: 4px;
 }
 .dp-dn {
@@ -446,8 +446,15 @@ body {
 
 .dp-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: 18px repeat(7, 1fr);
   gap: 2px;
+}
+.dp-weeknum {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px;
+  font-weight: 500;
+  color: #b8a090;
+  line-height: 1;
 }
 .dp-day {
   aspect-ratio: 1;
@@ -534,16 +541,49 @@ body {
 .cal-mhead > div { text-align: center; }
 .cal-mname { font-family: 'Caveat', cursive; font-size: 24px; font-weight: 700; letter-spacing: 0.03em; }
 .cal-myear { font-family: 'Caveat', cursive; font-size: 20px; font-weight: 700; opacity: 0.82; margin-left: 8px; }
-
 [class*="mh-"] { background: var(--btn-bg); color: var(--text-light); }
 
 /* Calendar grid */
 .cal-grid {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: 26px repeat(7, 1fr);
   min-height: 0;
 }
+/* Week number column */
+.cal-wnh {
+  background: rgba(245, 237, 224, 0.45);
+  border-right: 1px solid var(--btn-bg);
+  border-bottom: 1px solid var(--btn-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-family: 'Caveat', cursive;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  color: #b8a090;
+  text-align: center;
+  padding-right: 3px;
+}
+.cal-wn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: rgba(245, 237, 224, 0.45);
+  border-right: 1px solid var(--field-stroke);
+  border-bottom: 1px solid var(--field-stroke);
+  font-family: 'Caveat', cursive;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  color: #b8a090;
+  text-align: center;
+  padding-right: 3px;
+}
+.cal-wn-last { border-bottom: none; }
 .cal-dh {
   padding: 6px;
   font-family: 'Caveat', cursive;
@@ -626,7 +666,7 @@ body {
 
 /* ── Suppress double border at grid edges (outer .cal-page border covers all 4 sides) */
 /* Right edge — last column */
-.cal-grid > :nth-child(7n),
+.cal-grid > :nth-child(8n),
 .cal-grid-week-land > :nth-child(7n),
 .cal-grid-week > :nth-child(2n)          { border-right: none; }
 /* Bottom edge — last row */
@@ -764,6 +804,21 @@ body {
   }
   .paper-sheet:last-child { margin-bottom: 0; }
 
+  /* Tap hint */
+  .tap-hint {
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-microcopy);
+    padding: 8px 0 4px;
+  }
+
+  /* Tap active state */
+  .cal-cell:not(.empty):not(.past):active {
+    background-color: var(--brand-subtle) !important;
+    transition: none;
+  }
+
   /* Dropdowns: keep normal absolute positioning below their field pill.
      Sidebar has overflow:visible so nothing clips them. */
   .lp-list { max-height: 55vh; }
@@ -808,7 +863,7 @@ body {
       <span class="ctrl-label">Language</span>
       <div id="lang-picker-wrap">
         <div class="field-pill" id="lang-field" tabindex="0" role="button" aria-expanded="false">
-          <span class="field-text" id="lang-display">🇮🇹 Italiano</span>
+          <span class="field-text" id="lang-display">🇬🇧 English (UK)</span>
           <div class="chevron">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -817,10 +872,10 @@ body {
         </div>
         <div id="lang-picker">
           <div class="lp-list">
-            <div class="lp-opt lp-sel" data-value="it-IT">🇮🇹 Italiano</div>
-            <div class="lp-opt" data-value="fr-FR">🇫🇷 Français</div>
+            <div class="lp-opt lp-sel" data-value="en-GB">🇬🇧 English (UK)</div>
             <div class="lp-opt" data-value="en-US">🇺🇸 English (US)</div>
-            <div class="lp-opt" data-value="en-GB">🇬🇧 English (UK)</div>
+            <div class="lp-opt" data-value="fr-FR">🇫🇷 Français</div>
+            <div class="lp-opt" data-value="it-IT">🇮🇹 Italiano</div>
             <div class="lp-opt" data-value="es-ES">🇪🇸 Español</div>
             <div class="lp-opt" data-value="es-MX">🇲🇽 Español (México)</div>
             <div class="lp-opt" data-value="de-DE">🇩🇪 Deutsch</div>
@@ -1023,7 +1078,7 @@ var S = {
   numWeeks:      1,
   orientation:   'landscape',
   pageSize:      'A4',
-  locale:        'it-IT',
+  locale:        'en-GB',
   weekStartsMon: true,
   notes:         {},
   highlights:    {}
@@ -1087,14 +1142,23 @@ function closeDatePicker() {
   document.getElementById('dp-day-names').style.display = '';
 }
 
+function getISOWeek(date) {
+  var d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  var day = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - day);
+  var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+}
+
 function buildDatePicker() {
   // label
   document.getElementById('dp-label').textContent =
     new Intl.DateTimeFormat(S.locale,{month:'long',year:'numeric'}).format(new Date(dpCur.year,dpCur.month,1));
 
-  // day names row
+  // day names row — week num spacer + 7 day initials
   var dnEl = document.getElementById('dp-day-names');
   dnEl.innerHTML = '';
+  var wnh = document.createElement('div'); wnh.className = 'dp-dn'; dnEl.appendChild(wnh);
   weekDayNames().forEach(function(n) {
     var c = document.createElement('div');
     c.className = 'dp-dn';
@@ -1102,40 +1166,53 @@ function buildDatePicker() {
     dnEl.appendChild(c);
   });
 
-  // grid
+  // grid — row by row so we can prepend week numbers
   var grid = document.getElementById('dp-grid');
   grid.innerHTML = '';
   var daysInMonth = new Date(dpCur.year, dpCur.month+1, 0).getDate();
   var firstDow    = new Date(dpCur.year, dpCur.month, 1).getDay();
   var leading     = colFor(firstDow);
   var today       = new Date();
+  var totalRows   = Math.ceil((leading + daysInMonth) / 7);
 
-  for (var e=0;e<leading;e++) {
-    var empty = document.createElement('button');
-    empty.className = 'dp-day dp-empty';
-    grid.appendChild(empty);
-  }
-  for (var d=1;d<=daysInMonth;d++) {
-    (function(day) {
-      var btn = document.createElement('button');
-      btn.className = 'dp-day';
-      btn.textContent = day;
-      var isSel = S.startDate.getFullYear()===dpCur.year &&
-                  S.startDate.getMonth()===dpCur.month &&
-                  S.startDate.getDate()===day;
-      var isToday = today.getFullYear()===dpCur.year &&
-                    today.getMonth()===dpCur.month &&
-                    today.getDate()===day;
-      if (isSel)   btn.classList.add('dp-selected');
-      if (isToday && !isSel) btn.classList.add('dp-today');
-      btn.addEventListener('click', function() {
-        S.startDate = new Date(dpCur.year, dpCur.month, day);
-        updateDateDisplay();
-        closeDatePicker();
-        render();
-      });
-      grid.appendChild(btn);
-    })(d);
+  for (var row = 0; row < totalRows; row++) {
+    // week number for the first real date in this row
+    var rowDayOffset = row * 7 - leading + 1;
+    var rowDate = new Date(dpCur.year, dpCur.month, rowDayOffset);
+    var wnCell = document.createElement('div');
+    wnCell.className = 'dp-weeknum';
+    wnCell.textContent = getISOWeek(rowDate);
+    grid.appendChild(wnCell);
+
+    for (var col = 0; col < 7; col++) {
+      var cellIndex = row * 7 + col;
+      if (cellIndex < leading || cellIndex >= leading + daysInMonth) {
+        var empty = document.createElement('button');
+        empty.className = 'dp-day dp-empty';
+        grid.appendChild(empty);
+      } else {
+        (function(day) {
+          var btn = document.createElement('button');
+          btn.className = 'dp-day';
+          btn.textContent = day;
+          var isSel = S.startDate.getFullYear()===dpCur.year &&
+                      S.startDate.getMonth()===dpCur.month &&
+                      S.startDate.getDate()===day;
+          var isToday = today.getFullYear()===dpCur.year &&
+                        today.getMonth()===dpCur.month &&
+                        today.getDate()===day;
+          if (isSel)   btn.classList.add('dp-selected');
+          if (isToday && !isSel) btn.classList.add('dp-today');
+          btn.addEventListener('click', function() {
+            S.startDate = new Date(dpCur.year, dpCur.month, day);
+            updateDateDisplay();
+            closeDatePicker();
+            render();
+          });
+          grid.appendChild(btn);
+        })(cellIndex - leading + 1);
+      }
+    }
   }
 }
 
@@ -1318,27 +1395,42 @@ function renderMonth(year,month,idx) {
   var daysInMonth=new Date(year,month+1,0).getDate();
   var firstDow=new Date(year,month,1).getDay();
   var leading=colFor(firstDow);
-  var total=leading+daysInMonth;
-  var rows=Math.ceil(total/7);
+  var rows=Math.ceil((leading+daysInMonth)/7);
 
   var grid=el('div','cal-grid');
   grid.style.gridTemplateRows='auto repeat('+rows+',1fr)';
 
+  // Header row: week num header + 7 day name headers
+  var wnh=el('div','cal-wnh'); wnh.textContent='#'; grid.appendChild(wnh);
   weekDayNames().forEach(function(n,i) {
     var dh=el('div','cal-dh dc-'+i); dh.textContent=n.toUpperCase(); grid.appendChild(dh);
   });
+
   var startDay=new Date(S.startDate.getFullYear(),S.startDate.getMonth(),S.startDate.getDate());
-  for (var e=0;e<leading;e++) grid.appendChild(el('div','cal-cell empty'));
-  for (var d=1;d<=daysInMonth;d++) {
-    var dk=makeDateKey(year,month+1,d);
-    var cell=makeCell(dk);
-    if (new Date(year,month,d) < startDay) cell.classList.add('past');
-    var num=el('div','day-num'); num.textContent=d; cell.appendChild(num);
-    if (S.notes[dk]) { var nt=el('div','day-note'); nt.textContent=S.notes[dk]; cell.appendChild(nt); }
-    grid.appendChild(cell);
+
+  for (var row=0; row<rows; row++) {
+    // Week number cell
+    var rowDate=new Date(year, month, row*7 - leading + 1);
+    var wnCell=el('div','cal-wn'+(row===rows-1?' cal-wn-last':''));
+    wnCell.textContent=getISOWeek(rowDate);
+    grid.appendChild(wnCell);
+
+    for (var col=0; col<7; col++) {
+      var cellIndex=row*7+col;
+      if (cellIndex < leading || cellIndex >= leading+daysInMonth) {
+        grid.appendChild(el('div','cal-cell empty'));
+      } else {
+        var d=cellIndex-leading+1;
+        var dk=makeDateKey(year,month+1,d);
+        var cell=makeCell(dk);
+        if (new Date(year,month,d) < startDay) cell.classList.add('past');
+        var num=el('div','day-num'); num.textContent=d; cell.appendChild(num);
+        if (S.notes[dk]) { var nt=el('div','day-note'); nt.textContent=S.notes[dk]; cell.appendChild(nt); }
+        grid.appendChild(cell);
+      }
+    }
   }
-  var trail=(7-(total%7))%7;
-  for (var r=0;r<trail;r++) grid.appendChild(el('div','cal-cell empty'));
+
   page.appendChild(grid); return page;
 }
 
@@ -1347,7 +1439,9 @@ function renderWeek(start) {
   var page=el('div','cal-page');
   var end=new Date(start); end.setDate(end.getDate()+6);
   var hdr=el('div','cal-mhead mh-0');
-  hdr.innerHTML=SUN_SVG+'<div><span class="cal-mname">'+
+  var startDow=start.getDay();
+  var weekNumLabel=(startDow===1||startDow===0) ? '<span style="color:var(--field-stroke)">#'+getISOWeek(start)+' · </span>' : '';
+  hdr.innerHTML=SUN_SVG+'<div><span class="cal-mname">'+weekNumLabel+
     new Intl.DateTimeFormat(S.locale,{day:'numeric',month:'long'}).format(start)+' – '+
     new Intl.DateTimeFormat(S.locale,{day:'numeric',month:'long',year:'numeric'}).format(end)+'</span></div>'+RAINBOW_SVG;
   page.appendChild(hdr);
@@ -1557,6 +1651,22 @@ function setupControls() {
   });
 
   window.addEventListener('resize', function(){render();});
+
+  /* Tap hint — mobile only, injected after last sheet */
+  function updateTapHint() {
+    var existing = document.getElementById('tap-hint');
+    if (existing) existing.remove();
+    if (window.innerWidth <= 700) {
+      var hint = document.createElement('p');
+      hint.id = 'tap-hint';
+      hint.className = 'tap-hint';
+      hint.textContent = '✏️ Tap any day to add a highlight or note';
+      document.getElementById('preview').appendChild(hint);
+    }
+  }
+  var origRender = render;
+  render = function() { origRender(); updateTapHint(); };
+  updateTapHint();
 }
 
 /* ── HELPERS ───────────────────────────────────────────────── */
