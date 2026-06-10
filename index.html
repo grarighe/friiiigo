@@ -764,6 +764,10 @@ body {
 
 /* Mobile: stack vertically */
 @media (max-width: 700px) {
+  /* Keep scrollbar space reserved so its appearance/disappearance
+     never changes the measured width between renders */
+  html { scrollbar-gutter: stable; }
+
   /* Full-page scroll instead of fixed-height layout */
   #app {
     flex-direction: column;
@@ -798,8 +802,12 @@ body {
     display: block;
     padding: 12px 12px;
   }
-  /* Paper sheets stack with gap (replacing flex gap) */
+  /* Paper sheets stack with gap (replacing flex gap);
+     centered so any zoom-rounding residue splits evenly instead of
+     piling up as a gap on the right */
   .paper-sheet {
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 12px;
   }
   .paper-sheet:last-child { margin-bottom: 0; }
@@ -1254,7 +1262,7 @@ function paperDims() {
   var hpad  = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
   var vpad  = parseFloat(cs.paddingTop)  + parseFloat(cs.paddingBottom);
   var isMobileCalc = window.innerWidth <= 700;
-  var availW = (el.clientWidth  || 820) - hpad - (isMobileCalc ? 12 : 20);
+  var availW = (el.clientWidth  || 820) - hpad - (isMobileCalc ? 0 : 20);
   var availH = (el.clientHeight || 600) - vpad;
   var land  = S.orientation==='landscape';
   var a4    = S.pageSize==='A4';
@@ -1298,13 +1306,17 @@ function makeCell(dk) {
 /* ── RENDER ────────────────────────────────────────────────── */
 function render() {
   var preview=document.getElementById('preview');
+  /* Measure BEFORE wiping content: clearing the preview can momentarily
+     remove the page scrollbar, inflating clientWidth by ~15px and making
+     sheets overflow to the right once the scrollbar returns. */
+  var dims=paperDims();
   preview.innerHTML='';
   var labels=[];
   if (S.viewType==='monthly') {
     var cur=new Date(S.startDate.getFullYear(),S.startDate.getMonth(),1);
     for (var i=0;i<S.numMonths;i++) {
       labels.push(new Intl.DateTimeFormat(S.locale,{month:'long',year:'numeric'}).format(cur));
-      var s=makeSheet(); s.appendChild(renderMonth(cur.getFullYear(),cur.getMonth(),i));
+      var s=makeSheet(dims); s.appendChild(renderMonth(cur.getFullYear(),cur.getMonth(),i));
       preview.appendChild(s); cur.setMonth(cur.getMonth()+1);
     }
   } else if (S.viewType==='weekly') {
@@ -1315,7 +1327,7 @@ function render() {
         new Intl.DateTimeFormat(S.locale,{day:'numeric',month:'short'}).format(wstart)+' – '+
         new Intl.DateTimeFormat(S.locale,{day:'numeric',month:'short'}).format(wend)
       );
-      var s=makeSheet(); s.appendChild(renderWeek(new Date(wstart)));
+      var s=makeSheet(dims); s.appendChild(renderWeek(new Date(wstart)));
       preview.appendChild(s); wstart.setDate(wstart.getDate()+7);
     }
   }
@@ -1352,8 +1364,8 @@ function buildSheetNav(labels) {
   sheets.forEach(function(s){obs.observe(s);});
 }
 
-function makeSheet() {
-  var d=paperDims(), s=el('div','paper-sheet');
+function makeSheet(d) {
+  var s=el('div','paper-sheet');
   s.style.width=d.w+'px'; s.style.height=d.h+'px';
   s.style.zoom=d.zoom;
   return s;
