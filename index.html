@@ -1292,7 +1292,7 @@ function updatePrintCSS() {
   if (!s) { s=document.createElement('style'); s.id='_pcss'; document.head.appendChild(s); }
   s.textContent='@media print{@page{size:'+(S.pageSize==='A4'?'A4':'letter')+' '+S.orientation+';margin:8mm;}}';
 }
-function triggerPrint() { updatePrintCSS(); window.print(); }
+function triggerPrint() { updatePrintCSS(); setTimeout(function(){ window.print(); }, 100); }
 
 /* ── DOM HELPERS ───────────────────────────────────────────── */
 function el(tag,cls) { var e=document.createElement(tag); if(cls) e.className=cls; return e; }
