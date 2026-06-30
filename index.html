@@ -844,6 +844,8 @@ body {
   .app-footer { flex-direction: column; align-items: flex-start; gap: 4px; padding: 10px 16px; }
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 </head>
 <body>
 
@@ -1292,14 +1294,79 @@ function updatePrintCSS() {
   if (!s) { s=document.createElement('style'); s.id='_pcss'; document.head.appendChild(s); }
   s.textContent='@media print{@page{size:'+(S.pageSize==='A4'?'A4':'letter')+' '+S.orientation+';margin:8mm;}}';
 }
+/* Mobile browsers ignore the @page size descriptor, so window.print() can't
+   guarantee the chosen paper size / orientation. Instead we rasterise each
+   sheet into a correctly-sized PDF (size + orientation baked in) so the output
+   always matches the on-screen preview, on any device. */
 function triggerPrint() {
-  // Update @page CSS, then print synchronously. Calling window.print() inside
-  // the tap/click gesture is required on mobile (iOS Safari blocks it otherwise).
-  updatePrintCSS();
-  try { window.print(); }
-  catch (e) {
-    alert("Your browser blocked printing. Use your browser menu (Share → Print) to print this calendar.");
+  // Open a tab synchronously, inside the tap gesture, so mobile popup blockers
+  // don't kill it during the async render. Redirect it to the PDF when ready.
+  var win = null;
+  try { win = window.open('', '_blank'); } catch (e) {}
+  if (win) {
+    win.document.write('<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1">'
+      + '<title>Preparing your calendar…</title>'
+      + '<body style="margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;'
+      + 'display:flex;align-items:center;justify-content:center;height:100vh;color:#5b3a1e">'
+      + 'Preparing your calendar PDF…</body>');
   }
+
+  if (typeof html2canvas === 'undefined' || !window.jspdf) {
+    // Libraries not ready — fall back to the native print dialog.
+    if (win) win.close();
+    updatePrintCSS();
+    try { window.print(); }
+    catch (e) { alert("Your browser blocked printing. Use your browser menu (Share → Print) to print this calendar."); }
+    return;
+  }
+
+  buildCalendarPDF().then(function (doc) {
+    var url = doc.output('bloburl');
+    if (win) { win.location.href = url; }
+    else { doc.save('friiiigo-calendar.pdf'); }   // popup was blocked: download instead
+  }).catch(function (err) {
+    console.error(err);
+    if (win) win.close();
+    updatePrintCSS();
+    try { window.print(); } catch (e) {}
+  });
+}
+
+function buildCalendarPDF() {
+  var sheets = document.querySelectorAll('#preview .paper-sheet');
+  var land   = S.orientation === 'landscape';
+  var fmt    = S.pageSize === 'A4' ? 'a4' : 'letter';
+  var orient = land ? 'landscape' : 'portrait';
+  var doc    = new window.jspdf.jsPDF({ orientation: orient, unit: 'mm', format: fmt });
+  var pageW  = doc.internal.pageSize.getWidth();
+  var pageH  = doc.internal.pageSize.getHeight();
+
+  var chain = Promise.resolve();
+  sheets.forEach(function (sheet, i) {
+    chain = chain.then(function () {
+      // Capture an un-zoomed, off-screen clone so the page never visibly jumps
+      // and html2canvas isn't tripped up by the CSS zoom used for preview.
+      var clone = sheet.cloneNode(true);
+      clone.style.zoom = '1';
+      clone.style.position = 'absolute';
+      clone.style.left = '-10000px';
+      clone.style.top = '0';
+      clone.style.margin = '0';
+      clone.style.boxShadow = 'none';
+      document.body.appendChild(clone);
+
+      var targetPx = (pageW / 25.4) * 200;            // aim for ~200 DPI
+      var scale = Math.min(3, Math.max(1.5, targetPx / clone.offsetWidth));
+
+      return html2canvas(clone, { scale: scale, backgroundColor: '#ffffff', useCORS: true, logging: false })
+        .then(function (canvas) {
+          document.body.removeChild(clone);
+          if (i > 0) doc.addPage(fmt, orient);
+          doc.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pageW, pageH);
+        });
+    });
+  });
+  return chain.then(function () { return doc; });
 }
 
 /* ── DOM HELPERS ───────────────────────────────────────────── */
