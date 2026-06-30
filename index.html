@@ -1322,7 +1322,7 @@ function triggerPrint() {
 
   buildCalendarPDF().then(function (doc) {
     var url = doc.output('bloburl');
-    if (win) { win.location.href = url; }
+    if (win) { showPdfPage(win, url); }
     else { doc.save('friiiigo-calendar.pdf'); }   // popup was blocked: download instead
   }).catch(function (err) {
     console.error(err);
@@ -1330,6 +1330,44 @@ function triggerPrint() {
     updatePrintCSS();
     try { window.print(); } catch (e) {}
   });
+}
+
+/* Show the finished PDF with a prominent download button and printing tips.
+   We don't drop the user straight into the browser's inline PDF viewer,
+   because its print step on mobile ignores the page's size/orientation.
+   Downloading and opening in a PDF/printer app prints correctly. */
+function showPdfPage(win, url) {
+  var land = S.orientation === 'landscape';
+  var size = S.pageSize === 'A4' ? 'A4' : 'Letter';
+  var orient = land ? 'Landscape' : 'Portrait';
+  var doc = win.document;
+  doc.open();
+  doc.write(
+    '<!doctype html><html><head><meta charset="utf-8">'
+    + '<meta name="viewport" content="width=device-width,initial-scale=1">'
+    + '<title>Your Friiiigo calendar</title><style>'
+    + 'body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#faf6ef;color:#3e1e08;'
+    + 'display:flex;flex-direction:column;align-items:center;min-height:100vh}'
+    + '.bar{width:100%;box-sizing:border-box;padding:18px 20px;background:#fff;border-bottom:1px solid #eadfce;'
+    + 'display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}'
+    + 'h1{font-size:18px;margin:0}'
+    + '.btn{display:inline-block;background:#6c4cff;color:#fff;text-decoration:none;font-weight:600;'
+    + 'padding:12px 22px;border-radius:12px;font-size:16px}'
+    + '.tip{font-size:13px;color:#6b5640;max-width:440px;line-height:1.5;margin:0}'
+    + '.tip b{color:#3e1e08}'
+    + 'iframe{flex:1;width:100%;border:0;background:#e9e2d6}'
+    + '</style></head><body>'
+    + '<div class="bar">'
+    + '<h1>Your calendar is ready</h1>'
+    + '<a class="btn" href="' + url + '" download="friiiigo-calendar.pdf">Download PDF</a>'
+    + '<p class="tip">Printing from a phone? Download the file and open it in your printer or PDF app, '
+    + 'then set <b>' + orient + '</b> orientation, <b>' + size + '</b> paper and <b>Fit to page</b>. '
+    + 'Printing directly from this preview can crop the page.</p>'
+    + '</div>'
+    + '<iframe src="' + url + '"></iframe>'
+    + '</body></html>'
+  );
+  doc.close();
 }
 
 function buildCalendarPDF() {
