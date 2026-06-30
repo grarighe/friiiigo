@@ -1292,7 +1292,15 @@ function updatePrintCSS() {
   if (!s) { s=document.createElement('style'); s.id='_pcss'; document.head.appendChild(s); }
   s.textContent='@media print{@page{size:'+(S.pageSize==='A4'?'A4':'letter')+' '+S.orientation+';margin:8mm;}}';
 }
-function triggerPrint() { updatePrintCSS(); setTimeout(function(){ window.print(); }, 100); }
+function triggerPrint() {
+  // Update @page CSS, then print synchronously. Calling window.print() inside
+  // the tap/click gesture is required on mobile (iOS Safari blocks it otherwise).
+  updatePrintCSS();
+  try { window.print(); }
+  catch (e) {
+    alert("Your browser blocked printing. Use your browser menu (Share → Print) to print this calendar.");
+  }
+}
 
 /* ── DOM HELPERS ───────────────────────────────────────────── */
 function el(tag,cls) { var e=document.createElement(tag); if(cls) e.className=cls; return e; }
